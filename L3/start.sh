@@ -1,0 +1,1 @@
+cat t.txt | xargs ./main
