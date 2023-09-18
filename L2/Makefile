@@ -1,0 +1,20 @@
+CС=gcc
+CFLAGS= -pthread
+SRC = main.c
+OBJ = $(SRC:.c=.o)
+NAME = main
+
+all: $(NAME) $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+
+$(NAME) : $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+
+rebuild: all
+
+.o : .c
+	$(CC) $(CFLAGS) -c %< -o $@
+
+clean :
+	rm $(OBJ)
+	rm $(NAME)
