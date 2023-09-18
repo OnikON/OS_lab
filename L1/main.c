@@ -8,7 +8,7 @@ void* TreadMain (void* parameters);
 int main (void) {
     int ProgramStatus = 0;
     pthread_t thread;
-    //int createThreadStatus = pthread_create(&thread, NULL, TreadMain, NULL);
+    
     ProgramStatus = pthread_create(&thread, NULL, TreadMain, NULL);
     if ( ProgramStatus != 0) {
         printf("I can't create a thread erro [ '%d' ]", ProgramStatus);
