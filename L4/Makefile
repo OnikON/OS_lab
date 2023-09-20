@@ -12,11 +12,11 @@ $(NAME) : $(OBJ)
 
 rebuild: all
 
-test: $(NAME) tobj
-	$(CC) $(CFLAGS) -DTEST $(OBJ) -o $(NAME)
+time: $(NAME) tobj
+	$(CC) $(CFLAGS) -DTIME $(OBJ) -o $(NAME)
 
 tobj:
-	$(CC) $(CFLAGS) -DTEST -c $(SRC) -o $(OBJ)
+	$(CC) $(CFLAGS) -DTIME -c $(SRC) -o $(OBJ)
 	
 .o : .c
 	$(CC) $(CFLAGS) -c %< -o $@

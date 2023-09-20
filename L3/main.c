@@ -24,22 +24,24 @@ int main(int argc, char **argv) {
   for (int n_thread = 0; n_thread < NUM_THREADS; n_thread++) {
 
     if (n_thread == 0) {
-      param[NUM_THREADS].start_index = 1;
-      param[NUM_THREADS].end_index = logickmass[n_thread];
+      param[n_thread].start_index = 1;
+      param[n_thread].end_index = logickmass[n_thread];
     } else {
-      param[NUM_THREADS].start_index = logickmass[n_thread - 1] + 1;
-      param[NUM_THREADS].end_index = logickmass[n_thread];
+      param[n_thread].start_index = logickmass[n_thread - 1] + 1;
+      param[n_thread].end_index = logickmass[n_thread];
     }
 
-    param[NUM_THREADS].argv = argv;
+    param[n_thread].argv = argv;
 
     ProgramStatus =
-        pthread_create(&thread[n_thread], NULL, TreadMain, &param[NUM_THREADS]);
+        pthread_create(&thread[n_thread], NULL, TreadMain, &param[n_thread]);
     if (ProgramStatus != 0) {
       printf("I can't create a [%d]thread erro [ '%d' ]", n_thread,
              ProgramStatus);
     }
+    #ifdef TEST
     ProgramStatus = pthread_join(thread[n_thread], NULL);
+    #endif
   }
 
   if (ProgramStatus == 0) {
