@@ -1,0 +1,6 @@
+main [29892 1099 29892]: Hello from main!
+mythread [29892 1099 29893]: Hello from mythread!
+mythread [29892 1099 29894]: Hello from mythread!
+mythread [29892 1099 29895]: Hello from mythread!
+mythread [29892 1099 29896]: Hello from mythread!
+mythread [29892 1099 29897]: Hello from mythread!
