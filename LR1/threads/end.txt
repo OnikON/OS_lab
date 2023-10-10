@@ -1,6 +1,46 @@
-main [29892 1099 29892]: Hello from main!
-mythread [29892 1099 29893]: Hello from mythread!
-mythread [29892 1099 29894]: Hello from mythread!
-mythread [29892 1099 29895]: Hello from mythread!
-mythread [29892 1099 29896]: Hello from mythread!
-mythread [29892 1099 29897]: Hello from mythread!
+main [6918 395 6918]: Hello from main!
+mythread [6918 395 6919]: Hello from mythread!
+mythread : 140063902037568
+mythread : pointers :
+	int a = 0x7f632b206e30
+	const int b = 0x7f632b206e34
+	global = 0x565396e04010
+mythread : int a = 6	global = 5
+    main : 140063902037568
+
+mythread [6918 395 6920]: Hello from mythread!
+mythread : 140063902037568
+mythread : pointers :
+	int a = 0x7f632b206e30
+	const int b = 0x7f632b206e34
+	global = 0x565396e04010
+mythread : int a = 6	global = 6
+    main : 140063902037568
+
+mythread [6918 395 6921]: Hello from mythread!
+mythread : 140063902037568
+mythread : pointers :
+	int a = 0x7f632b206e30
+	const int b = 0x7f632b206e34
+	global = 0x565396e04010
+mythread : int a = 6	global = 7
+    main : 140063902037568
+
+mythread [6918 395 6922]: Hello from mythread!
+mythread : 140063902037568
+mythread : pointers :
+	int a = 0x7f632b206e30
+	const int b = 0x7f632b206e34
+	global = 0x565396e04010
+mythread : int a = 6	global = 8
+    main : 140063902037568
+
+mythread [6918 395 6923]: Hello from mythread!
+mythread : 140063902037568
+mythread : pointers :
+	int a = 0x7f632b206e30
+	const int b = 0x7f632b206e34
+	global = 0x565396e04010
+mythread : int a = 6	global = 9
+    main : 140063902037568
+
