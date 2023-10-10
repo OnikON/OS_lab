@@ -54,16 +54,15 @@ int main() {
 #endif
 	}
 #endif
-	sleep(20);
+	//sleep(1);
 	pthread_exit(NULL);
 
 }
 
 //thread fun...
 void *mythread(void *arg) {
-	//for (int i = 0; i < 100; i++)
 	printf("mythread [%d %d %d]: Hello from mythread!\n", getpid(), getppid(), gettid());
-
+	//sleep(2);
 #ifdef CTASK
 	printf("%s : %ld\n", __func__, pthread_self());
 	int a = 5;
@@ -72,7 +71,6 @@ void *mythread(void *arg) {
 #endif
 
 #ifdef DTASK
-
 	a++;
 	GLOBAL++;
 	printf("%s : int a = %d\tglobal = %d\n", __func__, a, GLOBAL);
