@@ -27,7 +27,8 @@ int main() {
 	int err;
 
 	printf("main [%d %d %d]: Hello from main!\n", getpid(), getppid(), gettid());
-
+	scanf("%*d");
+	
 #ifdef ATASK
 	err = pthread_create(&tid, NULL, mythread, NULL);
 	if (err) {
@@ -46,10 +47,11 @@ int main() {
 	    	handle_error_en(err, "pthread_create");
 		}
 #ifdef CTASK
-		int errV = pthread_join(tid[N_thred], NULL);
+		/*int errV = pthread_join(tid[N_thred], NULL);
 		if (errV) {
 	    	handle_error_en(errV, "pthread_join");
 		}
+		*/
 		printf("    %s : %ld\n\n", __func__, tid[N_thred]);
 #endif
 	}
@@ -76,6 +78,5 @@ void *mythread(void *arg) {
 	printf("%s : int a = %d\tglobal = %d\n", __func__, a, GLOBAL);
 
 #endif
-
 	return NULL;
 }
