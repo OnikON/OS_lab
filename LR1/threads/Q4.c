@@ -12,60 +12,34 @@
 
 void *mythread(void *arg);	
 
-#ifdef CTASK
 	int GLOBAL = 4;
-#endif
+
 
 int main() {
-#ifdef ATASK
-	pthread_t tid;
-#endif
 
-#ifdef BTASK
 	pthread_t tid[5];
-#endif
 	int err;
+
 	printf("main [%d %d %d]: Hello from main!\n", getpid(), getppid(), gettid());
 	scanf("%*d");
 	
-#ifdef ATASK
-	err = pthread_create(&tid, NULL, mythread, NULL);
-	if (err) {
-		handle_error_en(err, "pthread_create");
-	}
-	//pthread_detach(tid);
-	err = pthread_join(tid, NULL);
-	if (err) {
-    	handle_error_en(err, "pthread_join");
-	}
-#endif
 
-#ifdef BTASK
+
 	for (int N_thred = 0; N_thred < 5; N_thred++) {
 		err = pthread_create(&tid[N_thred], NULL, mythread, NULL);
 		if (err) {
 	    	handle_error_en(err, "pthread_create");
 		}
-		pthread_join(tid[N_thred], NULL);
-		
-#ifdef CTASK
-		// int errV = pthread_join(tid[N_thred], NULL);
-		// if (errV) {
-	    // 	handle_error_en(errV, "pthread_join");
-		// }
+
+		int errV = pthread_join(tid[N_thred], NULL);
+		if (errV) {
+	    	handle_error_en(errV, "pthread_join");
+		}
 		
 		printf("    %s : %ld\n\n", __func__, tid[N_thred]);
-#endif
+
 	}
 
-	// for (int N_thred = 0; N_thred < 5; N_thred++) {
-	// 	int errV = pthread_join(tid[N_thred], NULL);
-	// 	if (errV) {
-	//     	handle_error_en(errV, "pthread_join");
-	// 	}
-	// }
-
-#endif
 	//sleep(1);
 	pthread_exit(NULL);
 
@@ -74,20 +48,17 @@ int main() {
 //thread fun...
 void *mythread(void *arg) {
 	printf("mythread [%d %d %d]: Hello from mythread!\n", getpid(), getppid(), gettid());
-	scanf("%*d");
 	//sleep(2);
-#ifdef CTASK
-	printf("\n%s pthread_self: %ld\n", __func__, pthread_self());
-	int a = 5;
-	const int b = 23;	
-	printf("\n%s : pointers :\n\tint a = %p\n\tconst int b = %p\n\tglobal = %p\n", __func__, &a, &b, &GLOBAL);
-#endif
 
-#ifdef DTASK
+	printf("%s : %ld\n", __func__, pthread_self());
+	int a = 5;
+	const int b = 23;
+	printf("%s : pointers :\n\tint a = %p\n\tconst int b = %p\n\tglobal = %p\n", __func__, &a, &b, &GLOBAL);
+
+
 	a++;
 	GLOBAL++;
 	printf("%s : int a = %d\tglobal = %d\n", __func__, a, GLOBAL);
 
-#endif
 	return NULL;
 }

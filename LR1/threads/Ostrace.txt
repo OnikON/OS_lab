@@ -1,0 +1,83 @@
+15951 execve("./Q1", ["./Q1"], 0x7ffd35aa9f78 /* 29 vars */) = 0
+15951 brk(NULL)                         = 0x55836f099000
+15951 arch_prctl(0x3001 /* ARCH_??? */, 0x7fff10e0c250) = -1 EINVAL (Invalid argument)
+15951 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f2341c45000
+15951 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+15951 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+15951 newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=23151, ...}, AT_EMPTY_PATH) = 0
+15951 mmap(NULL, 23151, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2341c3f000
+15951 close(3)                          = 0
+15951 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+15951 read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+15951 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+15951 pread64(3, "\4\0\0\0 \0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 48, 848) = 48
+15951 pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\244;\374\204(\337f#\315I\214\234\f\256\271\32"..., 68, 896) = 68
+15951 newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=2216304, ...}, AT_EMPTY_PATH) = 0
+15951 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+15951 mmap(NULL, 2260560, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f2341a17000
+15951 mmap(0x7f2341a3f000, 1658880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7f2341a3f000
+15951 mmap(0x7f2341bd4000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x7f2341bd4000
+15951 mmap(0x7f2341c2c000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x214000) = 0x7f2341c2c000
+15951 mmap(0x7f2341c32000, 52816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f2341c32000
+15951 close(3)                          = 0
+15951 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f2341a14000
+15951 arch_prctl(ARCH_SET_FS, 0x7f2341a14740) = 0
+15951 set_tid_address(0x7f2341a14a10)   = 15951
+15951 set_robust_list(0x7f2341a14a20, 24) = 0
+15951 rseq(0x7f2341a150e0, 0x20, 0, 0x53053053) = 0
+15951 mprotect(0x7f2341c2c000, 16384, PROT_READ) = 0
+15951 mprotect(0x55836e225000, 4096, PROT_READ) = 0
+15951 mprotect(0x7f2341c7f000, 8192, PROT_READ) = 0
+15951 prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+15951 munmap(0x7f2341c3f000, 23151)     = 0
+15951 gettid()                          = 15951
+15951 getppid()                         = 15948
+15951 getpid()                          = 15951
+15951 newfstatat(1, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x4), ...}, AT_EMPTY_PATH) = 0
+15951 getrandom("\x67\x00\x84\x11\x0f\x2e\xed\x53", 8, GRND_NONBLOCK) = 8
+15951 brk(NULL)                         = 0x55836f099000
+15951 brk(0x55836f0ba000)               = 0x55836f0ba000
+15951 write(1, "main [15951 15948 15951]: Hello "..., 43) = 43
+15951 newfstatat(0, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x4), ...}, AT_EMPTY_PATH) = 0
+15951 read(0, "1\n", 1024)              = 2
+15951 rt_sigaction(SIGRT_1, {sa_handler=0x7f2341aa8870, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_RESTART|SA_SIGINFO, sa_restorer=0x7f2341a59520}, NULL, 8) = 0
+15951 rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+15951 mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f2341213000
+15951 mprotect(0x7f2341214000, 8388608, PROT_READ|PROT_WRITE) = 0
+15951 rt_sigprocmask(SIG_BLOCK, ~[], [], 8) = 0
+15951 clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7f2341a13910, parent_tid=0x7f2341a13910, exit_signal=0, stack=0x7f2341213000, stack_size=0x7fff00, tls=0x7f2341a13640} => {parent_tid=[15952]}, 88) = 15952
+15952 rseq(0x7f2341a13fe0, 0x20, 0, 0x53053053 <unfinished ...>
+15951 rt_sigprocmask(SIG_SETMASK, [],  <unfinished ...>
+15952 <... rseq resumed>)               = 0
+15951 <... rt_sigprocmask resumed>NULL, 8) = 0
+15952 set_robust_list(0x7f2341a13920, 24 <unfinished ...>
+15951 futex(0x7f2341a13910, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 15952, NULL, FUTEX_BITSET_MATCH_ANY <unfinished ...>
+15952 <... set_robust_list resumed>)    = 0
+15952 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+15952 gettid()                          = 15952
+15952 getppid()                         = 15948
+15952 getpid()                          = 15951
+15952 write(1, "mythread [15951 15948 15952]: He"..., 51) = 51
+15952 rt_sigprocmask(SIG_BLOCK, ~[RT_1], NULL, 8) = 0
+15952 madvise(0x7f2341213000, 8368128, MADV_DONTNEED) = 0
+15952 exit(0)                           = ?
+15951 <... futex resumed>)              = 0
+15952 +++ exited with 0 +++
+15951 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+15951 newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=23151, ...}, AT_EMPTY_PATH) = 0
+15951 mmap(NULL, 23151, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f2341c3f000
+15951 close(3)                          = 0
+15951 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libgcc_s.so.1", O_RDONLY|O_CLOEXEC) = 3
+15951 read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+15951 newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=125488, ...}, AT_EMPTY_PATH) = 0
+15951 mmap(NULL, 127720, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f23411f3000
+15951 mmap(0x7f23411f6000, 94208, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x7f23411f6000
+15951 mmap(0x7f234120d000, 16384, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1a000) = 0x7f234120d000
+15951 mmap(0x7f2341211000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1d000) = 0x7f2341211000
+15951 close(3)                          = 0
+15951 mprotect(0x7f2341211000, 4096, PROT_READ) = 0
+15951 munmap(0x7f2341c3f000, 23151)     = 0
+15951 futex(0x7f2341212210, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+15951 lseek(0, -1, SEEK_CUR)            = -1 ESPIPE (Illegal seek)
+15951 exit_group(0)                     = ?
+15951 +++ exited with 0 +++

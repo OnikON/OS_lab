@@ -1,0 +1,67 @@
+execve("./Q1", ["./Q1"], 0x7ffcc5ff3630 /* 29 vars */) = 0
+brk(NULL)                               = 0x55c4b698b000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7fffcc2dc190) = -1 EINVAL (Invalid argument)
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fd2cc881000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=23151, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 23151, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fd2cc87b000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0 \0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 48, 848) = 48
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\244;\374\204(\337f#\315I\214\234\f\256\271\32"..., 68, 896) = 68
+newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=2216304, ...}, AT_EMPTY_PATH) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 2260560, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fd2cc653000
+mmap(0x7fd2cc67b000, 1658880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7fd2cc67b000
+mmap(0x7fd2cc810000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x7fd2cc810000
+mmap(0x7fd2cc868000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x214000) = 0x7fd2cc868000
+mmap(0x7fd2cc86e000, 52816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fd2cc86e000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fd2cc650000
+arch_prctl(ARCH_SET_FS, 0x7fd2cc650740) = 0
+set_tid_address(0x7fd2cc650a10)         = 15946
+set_robust_list(0x7fd2cc650a20, 24)     = 0
+rseq(0x7fd2cc6510e0, 0x20, 0, 0x53053053) = 0
+mprotect(0x7fd2cc868000, 16384, PROT_READ) = 0
+mprotect(0x55c4b5560000, 4096, PROT_READ) = 0
+mprotect(0x7fd2cc8bb000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x7fd2cc87b000, 23151)           = 0
+gettid()                                = 15946
+getppid()                               = 15943
+getpid()                                = 15946
+newfstatat(1, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x4), ...}, AT_EMPTY_PATH) = 0
+getrandom("\xc7\xc8\x13\x5a\x5c\x96\x29\x6d", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x55c4b698b000
+brk(0x55c4b69ac000)                     = 0x55c4b69ac000
+write(1, "main [15946 15943 15946]: Hello "..., 43) = 43
+newfstatat(0, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x4), ...}, AT_EMPTY_PATH) = 0
+read(0, "1\n", 1024)                    = 2
+rt_sigaction(SIGRT_1, {sa_handler=0x7fd2cc6e4870, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_RESTART|SA_SIGINFO, sa_restorer=0x7fd2cc695520}, NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
+mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7fd2cbe4f000
+mprotect(0x7fd2cbe50000, 8388608, PROT_READ|PROT_WRITE) = 0
+rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7fd2cc64f910, parent_tid=0x7fd2cc64f910, exit_signal=0, stack=0x7fd2cbe4f000, stack_size=0x7fff00, tls=0x7fd2cc64f640} => {parent_tid=[15947]}, 88) = 15947
+rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=23151, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 23151, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fd2cc87b000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libgcc_s.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=125488, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 127720, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fd2cbe2f000
+mmap(0x7fd2cbe32000, 94208, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x7fd2cbe32000
+mmap(0x7fd2cbe49000, 16384, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1a000) = 0x7fd2cbe49000
+mmap(0x7fd2cbe4d000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1d000) = 0x7fd2cbe4d000
+close(3)                                = 0
+mprotect(0x7fd2cbe4d000, 4096, PROT_READ) = 0
+munmap(0x7fd2cc87b000, 23151)           = 0
+futex(0x7fd2cbe4e210, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+lseek(0, -1, SEEK_CUR)                  = -1 ESPIPE (Illegal seek)
+exit_group(0)                           = ?
++++ exited with 0 +++
