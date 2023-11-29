@@ -1,6 +1,6 @@
 CС=gcc
-CFLAGS= -pthread
-SRC = 1.c
+CFLAGS= -g -Wall -lpthread
+SRC = d.c
 OBJ = $(SRC:.c=.o)
 NAME = main
 
@@ -18,3 +18,4 @@ rebuild: all
 clean :
 	rm $(OBJ)
 	rm $(NAME)
+	rm *.o

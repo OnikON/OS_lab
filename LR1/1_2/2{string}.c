@@ -18,7 +18,7 @@
 
 #define PARAMETRS struct parametrs
 struct parametrs {
-  int value;
+  char *value;
 };
 
 void *TreadMain(void *arg);
@@ -31,9 +31,9 @@ int main(void) {
   pthread_t thread;
   PARAMETRS param[NUM_THREADS];
 
-  param->value = 666;
+  param->value = "PRIVETworld";
 
-  printf("in main start value = [%d]\n", param->value);
+  printf("in main start value = [%s]\n", param->value);
 
   ProgramStatus = pthread_create(&thread, NULL, TreadMain, &param[0]);
   if (ProgramStatus) {
@@ -45,15 +45,15 @@ int main(void) {
     handle_error_en(ProgramStatus, "pthread_join");
   }
 
-  printf("in main value = [%d]\n", param->value);
+  printf("in main value = [%s]\n", param->value);
 
   return ProgramStatus;
 }
 
 void *TreadMain(void *parameters) {
   PARAMETRS *param = (PARAMETRS *)parameters;
-  param->value = 42;
-  printf("in thread value = [%d]\n", param->value);
+  param->value = "Hello World";
+  printf("in thread value = [%s]\n", param->value);
 }
 
 void print(int value) { printf("in thread value = [%d]\n", value); }

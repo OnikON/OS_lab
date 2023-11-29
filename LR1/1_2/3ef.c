@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <malloc.h>
 
 #define NUM_THREADS 1
 
@@ -16,11 +17,6 @@
     exit(EXIT_FAILURE);                                                        \
   } while (0)
 
-#define PARAMETRS struct parametrs
-struct parametrs {
-  int value;
-};
-
 void *TreadMain(void *arg);
 
 int main(void) {
@@ -29,31 +25,36 @@ int main(void) {
 
   int ProgramStatus = 0;
   pthread_t thread;
-  PARAMETRS param[NUM_THREADS];
+  pthread_attr_t attr;
 
-  param->value = 666;
+  printf("main [%d %d %d]: Hello from main!\n", getpid(), getppid(), gettid());
+  scanf("%*d");
 
-  printf("in main start value = [%d]\n", param->value);
+  pthread_attr_init(&attr);
+  pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED);
 
-  ProgramStatus = pthread_create(&thread, NULL, TreadMain, &param[0]);
-  if (ProgramStatus) {
-    handle_error_en(ProgramStatus, "pthread_create");
+  while (1) {
+    
+    ProgramStatus = pthread_create(&thread, &attr, TreadMain, NULL);
+    if (ProgramStatus) {
+      handle_error_en(ProgramStatus, "pthread_create");
+    }
+
+    // ProgramStatus = pthread_detach(thread);
+    // if (ProgramStatus) {
+    //   handle_error_en(ProgramStatus, "pthread_detach");
+    // }
+
+    // ProgramStatus = pthread_join(thread, NULL);
+    // if (ProgramStatus) {
+    //   handle_error_en(ProgramStatus, "pthread_join");
+    // }
   }
-
-  ProgramStatus = pthread_join(thread, NULL);
-  if (ProgramStatus) {
-    handle_error_en(ProgramStatus, "pthread_join");
-  }
-
-  printf("in main value = [%d]\n", param->value);
 
   return ProgramStatus;
 }
 
 void *TreadMain(void *parameters) {
-  PARAMETRS *param = (PARAMETRS *)parameters;
-  param->value = 42;
-  printf("in thread value = [%d]\n", param->value);
+  printf("in thread tid = [%d]\n", gettid());
+  return NULL;
 }
-
-void print(int value) { printf("in thread value = [%d]\n", value); }

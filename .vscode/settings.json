@@ -3,6 +3,10 @@
         "pthread.h": "c",
         "stdio.h": "c",
         "string.h": "c",
-        "errno.h": "c"
+        "errno.h": "c",
+        "type_traits": "c",
+        "malloc.h": "c",
+        "cstdlib": "c",
+        "stdlib.h": "c"
     }
 }
