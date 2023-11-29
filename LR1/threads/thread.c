@@ -46,7 +46,8 @@ int main() {
 		if (err) {
 	    	handle_error_en(err, "pthread_create");
 		}
-		pthread_join(tid[N_thred], NULL);
+		sleep(5);
+		//pthread_join(tid[N_thred], NULL);
 		
 #ifdef CTASK
 		// int errV = pthread_join(tid[N_thred], NULL);
@@ -57,7 +58,7 @@ int main() {
 		printf("    %s : %ld\n\n", __func__, tid[N_thred]);
 #endif
 	}
-
+	pthread_join(tid[4], NULL);
 	// for (int N_thred = 0; N_thred < 5; N_thred++) {
 	// 	int errV = pthread_join(tid[N_thred], NULL);
 	// 	if (errV) {
@@ -67,6 +68,7 @@ int main() {
 
 #endif
 	//sleep(1);
+	
 	pthread_exit(NULL);
 
 }
