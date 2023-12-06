@@ -5,4 +5,7 @@ ID поток - процесс
     https://www.baeldung.com/linux/system-calls-vs-library-calls
 Proc/[pid]/maps
     https://stackoverflow.com/questions/1401359/understanding-linux-proc-pid-maps-or-proc-self-maps
+cancel
+    https://stackoverflow.com/questions/23220206/what-are-pthread-cancelation-points-used-for
+    https://stackoverflow.com/questions/11271616/pthread-cancel-function-failed-to-terminate-a-thread
     

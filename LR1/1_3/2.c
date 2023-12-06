@@ -58,7 +58,7 @@ void *thread_function(void *arg) {
      while (1) {
         // Увеличиваем счетчик
         counter++;
-        printf("  !");
+        //printf("  !");
         //sleep(1);
     }
 
