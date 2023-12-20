@@ -1,4 +1,4 @@
-SRC = 2.c
+SRC = 3.c
 CС=gcc
 CFLAGS= -g -Wall -lpthread
 OBJ = $(SRC:.c=.o)
