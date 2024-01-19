@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
 
   if (mkdir(dirs->new_dir_paths, mode) != 0) {
     perror("Couldn't make new directory: \n");
-
+    free(dirs);
     exit(3);
   }
 
@@ -189,7 +189,7 @@ void *DirCP(void *arg) {
     if (dir != 0) {
       strerror_r(errno, err_buf, ERROR_BUFFER_LENGTH);
       printf("Couldn't open directory: %s\n", err_buf);
-
+      closedir(ODir_fd);
       free(dirs);
       pthread_exit(NULL);
     }
@@ -256,7 +256,7 @@ void ThreadFileCP(dir_paths *dirs) {
     free(dirs);
     pthread_exit(NULL);
   }
-  
+
   free(dirs);
   pthread_attr_destroy(&attrs);
 }
@@ -290,6 +290,7 @@ void ThreadDirCP(dir_paths *dirs) {
     pthread_exit(NULL);
   }
 
+  //free(dirs);
   pthread_attr_destroy(&attrs);
   printf("do[%s]:%d\n", __func__, __LINE__);
 }
