@@ -39,7 +39,24 @@ queue_t* queue_init(int max_count) {
 		printf("queue_init: pthread_create() failed: %s\n", strerror(err));
 		abort();
 	}
+	//pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+	//pthread_cond_t cond_var = PTHREAD_COND_INITIALIZER;
+	err = pthread_mutex_init(&q->mutex, NULL);
+	if (err) {                    
+        printf("queue_init: pthread_mutex_init() failed: %s\n", strerror(err));
+        abort();                  
+    }
 
+	err = pthread_cond_init(&q->cond_not_full, NULL);
+	if (err) {
+		printf("queue_init: pthread_cond_init() failed: %s\n", strerror(err));
+		abort();
+	}
+	err = pthread_cond_init(&q->cond_not_empty, NULL);
+	if (err) {
+		printf("queue_init: pthread_cond_init() failed: %s\n", strerror(err));
+		abort();
+	}
 	return q;
 }
 
@@ -59,16 +76,35 @@ void queue_destroy(queue_t *q) {
         tmp = next;
     }
 
+	status = pthread_mutex_destroy(&q->mutex);
+    if (status) {
+        printf("queue_destroy: pthread_mutex_destroy() failed: %s\n", strerror(status));
+    }
+
+	status = pthread_cond_destroy(&q->cond_not_full);
+    if (status) {
+        printf("queue_destroy: pthread_cond_destroy() failed: %s\n", strerror(status));
+    }
+	status = pthread_cond_destroy(&q->cond_not_empty);
+    if (status) {
+        printf("queue_destroy: pthread_cond_destroy() failed: %s\n", strerror(status));
+    }
 	free(q);
 }
 
 int queue_add(queue_t *q, int val) {
+
+	pthread_mutex_lock(&(q->mutex));
+
 	q->add_attempts++;
 
 	assert(q->count <= q->max_count);
 
-	if (q->count == q->max_count)
-		return 0;
+	while (q->count == q->max_count) {
+		pthread_cond_wait(&(q->cond_not_full), &(q->mutex));
+		// pthread_mutex_unlock(&(q->mutex));
+		// return 0;
+	}
 
 	qnode_t *new = malloc(sizeof(qnode_t));
 	if (!new) {
@@ -88,19 +124,25 @@ int queue_add(queue_t *q, int val) {
 
 	q->count++;
 	q->add_count++;
+	pthread_cond_signal(&(q->cond_not_empty));
+	pthread_mutex_unlock(&(q->mutex));
 
 	return 1;
 }
 
 int queue_get(queue_t *q, int *val) {
+	
+	pthread_mutex_lock(&(q->mutex));
+
 	q->get_attempts++;
 
-	//ошибка? [нужно больше проверок!!! что не превысило макс, что ]
 	assert(q->count >= 0);
 
-	if (q->count == 0)
-		return 0;
-
+	while (q->count == 0) {
+		pthread_cond_wait(&(q->cond_not_empty), &(q->mutex));
+		// pthread_mutex_unlock(&(q->mutex));
+		// return 0;
+	}
 	qnode_t *tmp = q->first;
 	//ошибка? [если многоппоток, то может указывать на NULL, очередь не нулевая, ]
 	*val = tmp->val;
@@ -110,14 +152,17 @@ int queue_get(queue_t *q, int *val) {
 	free(tmp);
 	q->count--;
 	q->get_count++;
-
+	pthread_cond_signal(&(q->cond_not_full));
+	pthread_mutex_unlock(&(q->mutex));
 	return 1;
 }
 
 void queue_print_stats(queue_t *q) {
+	pthread_mutex_lock(&(q->mutex));
 	printf("queue stats: current size %d; attempts: (%ld %ld %ld); counts (%ld %ld %ld)\n",
 		q->count,
 		q->add_attempts, q->get_attempts, q->add_attempts - q->get_attempts,
 		q->add_count, q->get_count, q->add_count -q->get_count);
+	pthread_mutex_unlock(&(q->mutex));
 }
 

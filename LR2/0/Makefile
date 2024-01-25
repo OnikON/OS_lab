@@ -15,6 +15,9 @@ rebuild: all
 .o : .c
 	$(CC) $(CFLAGS) -c %< -o $@
 
+c :
+	rm *.o
+
 clean :
 	rm $(OBJ)
 	rm $(NAME)

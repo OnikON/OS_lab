@@ -40,6 +40,12 @@ queue_t* queue_init(int max_count) {
 		abort();
 	}
 
+	err = pthread_spin_init(&q->spinlock, 0);
+	if (err) {                    
+        printf("queue_init: pthread_spin_init() failed: %s\n", strerror(err));
+        abort();                  
+    }
+
 	return q;
 }
 
@@ -59,16 +65,26 @@ void queue_destroy(queue_t *q) {
         tmp = next;
     }
 
+	status = pthread_spin_destroy(&q->spinlock);
+    if (status) {
+        printf("queue_destroy: pthread_spin_destroy() failed: %s\n", strerror(status));
+    }
+
 	free(q);
 }
 
 int queue_add(queue_t *q, int val) {
+
+	pthread_spin_lock(&(q->spinlock));
+
 	q->add_attempts++;
 
 	assert(q->count <= q->max_count);
 
-	if (q->count == q->max_count)
+	if (q->count == q->max_count) {
+		pthread_spin_unlock(&(q->spinlock));
 		return 0;
+	}
 
 	qnode_t *new = malloc(sizeof(qnode_t));
 	if (!new) {
@@ -89,18 +105,23 @@ int queue_add(queue_t *q, int val) {
 	q->count++;
 	q->add_count++;
 
+	pthread_spin_unlock(&(q->spinlock));
+
 	return 1;
 }
 
 int queue_get(queue_t *q, int *val) {
+	
+	pthread_spin_lock(&(q->spinlock));
+
 	q->get_attempts++;
 
-	//ошибка? [нужно больше проверок!!! что не превысило макс, что ]
 	assert(q->count >= 0);
 
-	if (q->count == 0)
+	if (q->count == 0) {
+		pthread_spin_unlock(&(q->spinlock));
 		return 0;
-
+	}
 	qnode_t *tmp = q->first;
 	//ошибка? [если многоппоток, то может указывать на NULL, очередь не нулевая, ]
 	*val = tmp->val;
@@ -110,14 +131,16 @@ int queue_get(queue_t *q, int *val) {
 	free(tmp);
 	q->count--;
 	q->get_count++;
-
+	pthread_spin_unlock(&(q->spinlock));
 	return 1;
 }
 
 void queue_print_stats(queue_t *q) {
+	pthread_spin_lock(&(q->spinlock));
 	printf("queue stats: current size %d; attempts: (%ld %ld %ld); counts (%ld %ld %ld)\n",
 		q->count,
 		q->add_attempts, q->get_attempts, q->add_attempts - q->get_attempts,
 		q->add_count, q->get_count, q->add_count -q->get_count);
+	pthread_spin_unlock(&(q->spinlock));
 }
 

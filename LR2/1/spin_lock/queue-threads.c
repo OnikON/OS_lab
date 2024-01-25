@@ -24,7 +24,7 @@ void set_cpu(int n) {
 	// Устанавливает бит для процессора с номером n в структуре
 	CPU_SET(n, &cpuset);
 
-	//Устанавливает аффинитет текущего потока с использованием структуры 
+	//Устанавливает аффинитет текущего потока с использованием структуры
 	err = pthread_setaffinity_np(tid, sizeof(cpu_set_t), &cpuset);
 	if (err) {
 		printf("set_cpu: pthread_setaffinity failed for cpu %d\n", n);
@@ -61,7 +61,7 @@ void *writer(void *arg) {
 	queue_t *q = (queue_t *)arg;
 	printf("writer [%d %d %d]\n", getpid(), getppid(), gettid());
 
-	set_cpu(1);
+	set_cpu(2);
 
 	while (1) {
 		int ok = queue_add(q, i);
