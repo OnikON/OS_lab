@@ -1,0 +1,17 @@
+
+
+
+struct dirent :
+    char d_reserved[16]  -  Reserved
+
+    unsigned int d_fileno_gen_id  -  The generation ID associated with the file
+ID.
+
+    unsigned int d_reclen  -  The length of the directory entry in bytes.
+
+    ...
+
+    unsigned int d_namelen  -  The length of the name in bytes, excluding the
+null terminator.
+
+    har	d_name[640]  -  A string that gives the name of a file in the directory.

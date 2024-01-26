@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+#define _POSIX_C_SOURCE 200809L
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -58,23 +60,6 @@ int main(int argc, char *argv[]) {
   pthread_exit(NULL);
 }
 
-/*
-struct dirent :
-    char d_reserved[16]  -  Reserved
-
-    unsigned int d_fileno_gen_id  -  The generation ID associated with the file
-ID.
-
-    unsigned int d_reclen  -  The length of the directory entry in bytes.
-
-    ...
-
-    unsigned int d_namelen  -  The length of the name in bytes, excluding the
-null terminator.
-
-    har	d_name[640]  -  A string that gives the name of a file in the directory.
-*/
-
 void *FileCP(void *arg) {
   dir_paths *dirs = (dir_paths *)arg;
   char err_buf[ERROR_BUFFER_LENGTH];
@@ -102,15 +87,7 @@ void *FileCP(void *arg) {
   printf("Creating file...%s\n", dirs->new_dir_paths);
 
   struct stat stats;
-  // lstat(dirs->old_dir_paths, &stats);
-  if (lstat(dirs->old_dir_paths, &stats) == -1) {
-    strerror_r(errno, err_buf, ERROR_BUFFER_LENGTH);
-    printf("Couldn't watch file stats: %s\n", err_buf);
-
-    free(dirs);
-    close(old_file);
-    pthread_exit(NULL);
-  }
+  lstat(dirs->old_dir_paths, &stats);
 
   mode_t mode = stats.st_mode;
 
@@ -124,6 +101,7 @@ void *FileCP(void *arg) {
         printf("Couldn't create file: %s\n", err_buf);
 
         free(dirs);
+        //f
         close(old_file);
         pthread_exit(NULL);
       }
@@ -166,6 +144,7 @@ void *DirCP(void *arg) {
         strerror_r(errno, err_buf, ERROR_BUFFER_LENGTH);
         printf("Couldn't open directory: %s\n", err_buf);
 
+        //close(ODir_fd);
         free(dirs);
         pthread_exit(NULL);
       }
@@ -181,14 +160,13 @@ void *DirCP(void *arg) {
   printf("do[%s]:%d - ", __func__, __LINE__);
   printf("[pid:%d, tid:%d]\n", getpid(), gettid());
 
-  int dir;
-
   // while(cur_file != NULL) // reading files from directory except "." and ".."
   do {
     int dir = readdir_r(ODir_fd, entry, &cur_file);
     if (dir != 0) {
       strerror_r(errno, err_buf, ERROR_BUFFER_LENGTH);
       printf("Couldn't open directory: %s\n", err_buf);
+      //f
       closedir(ODir_fd);
       free(dirs);
       pthread_exit(NULL);
@@ -210,7 +188,7 @@ void *DirCP(void *arg) {
     sprintf(new_filename, tmp, dirs->new_dir_paths, cur_file->d_name);
 
     struct stat file_stats;
-    //обработать
+
     lstat(old_filename, &file_stats);
     if (S_ISDIR(file_stats.st_mode)) {
       printf("[cur_file != NULL]do[%s]:%d\n", __func__, __LINE__);
@@ -257,19 +235,18 @@ void ThreadFileCP(dir_paths *dirs) {
     pthread_exit(NULL);
   }
 
-  free(dirs);
   pthread_attr_destroy(&attrs);
 }
 
 void ThreadDirCP(dir_paths *dirs) {
   printf("do[%s]:%d\n", __func__, __LINE__);
   struct stat stats;
-  //обработать
+
   lstat(dirs->old_dir_paths, &stats);
   mode_t mode = stats.st_mode;
 
   if (mkdir(dirs->new_dir_paths, mode) != 0) {
-    printf("Couldn't create new dir!\n");
+    printf("Couldn't create new dir! paths - %s\n", dirs->new_dir_paths);
     pthread_exit(NULL);
   }
   printf("New dir created\n");
