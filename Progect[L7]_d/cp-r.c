@@ -34,6 +34,7 @@ int main(int argc, char *argv[]) {
     printf("Not enough arguments\n");
     exit(A);
   }
+  
   dir_paths *dirs = (dir_paths *)malloc(sizeof(dir_paths));
   strcpy(dirs->old_dir_paths, argv[1]);
   strcpy(dirs->new_dir_paths, argv[2]);
